@@ -1,42 +1,42 @@
-# Stage 1 --- Declaration of the Golang building image version.
+# ---------------------------------------------------------------------------------------------------------------------
+# ** info: stage 1: building image
+# ---------------------------------------------------------------------------------------------------------------------
 
-FROM golang:1.18.1-alpine3.15 AS build
+# ** info: declaration of the rust building image version
+FROM rust:1.65.0 AS build
 
-# Declaration of the project file system inside the building image.
+# ** info: declaration of the project file system inside the building image
+ARG WORKDIR=/home/rust_prod
 
-ARG WORKDIR=/home/golang_prod
-
-# Creating the directories for the file system.
-
+# ** info: creating the directories for the file system.
 RUN mkdir -p $WORKDIR
 
-# Establishing the default work directory.
-
+# ** info: establishing the default work directory.
 WORKDIR $WORKDIR
 
-# Copying the source code to the building image and building the api.
+# ** info: copying the source code and the dependencies files to the building image and building the app.
+COPY ["Cargo.lock", "$WORKDIR"]
+COPY ["Cargo.toml", "$WORKDIR"]
 
-COPY ["main", "$WORKDIR/main"]
+COPY ["src", "$WORKDIR/src"]
 
-WORKDIR $WORKDIR/main
-RUN go mod download -x
-RUN go build -o app
+RUN cargo build --release
 
-# Stage 2 --- Declaration of the Alpine version.
+# ---------------------------------------------------------------------------------------------------------------------
+# ** stage 2: production image.
+# ---------------------------------------------------------------------------------------------------------------------
 
-FROM alpine:latest
+# ** info: declaration of the production alpine version.
+FROM debian:buster-slim
 
-# Declaration of the project file system and username inside the deployment image.
-
+# ** info: declaration of the project file system and username inside the deployment image.
 ARG USERNAME=production
 ARG WORKDIR=/home/$USERNAME
 
-# Creating the user on ash and their home directory.
+# ** info: creating the user on bash and their home directory.
+RUN useradd --create-home --shell /bin/bash $USERNAME
 
-RUN adduser --home $WORKDIR --shell /bin/ash $USERNAME --disabled-password
-
-# Changing the premises of the file system.
-
+# ** info: changing the premises of the file system.
 RUN chown -R $USERNAME $WORKDIR
 
 RUN find "$WORKDIR/" -type d -exec chmod 755 {} \;
@@ -44,16 +44,15 @@ RUN find "$WORKDIR/" -type f -exec chmod 755 {} \;
 
 RUN chmod 755 $WORKDIR
 
-# Establishing the default user and the default working directory.
-
+# ** info: establishing the default user and the default working directory.
 WORKDIR $WORKDIR
 USER $USERNAME
 
-# Copying the builded app and the schems from the building image to the deployment image.
+# ** info: copying external needed files to the deployment image.
+COPY ["configs", "$WORKDIR/configs"]
 
-COPY --from=build ["/home/golang_prod/main/schemas", "$WORKDIR/schemas"]
-COPY --from=build ["/home/golang_prod/main/app", "$WORKDIR"]
+# ** info: copying the builded app and the schems from the building image to the deployment image.
+COPY --from=build ["/home/rust_prod/target/release/users_crud_api_rust", "$WORKDIR"]
 
-# Executing the app.
-
-ENTRYPOINT ["./app"]
+# ** info: executing the app.
+ENTRYPOINT ["./users_crud_api_rust"]
