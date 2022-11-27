@@ -6,3 +6,29 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+
+# project basic dependencies
+cargo-modules = "0.6.0"
+
+# actix dependencies
+actix-web-validator = "5.0.1"
+actix = "0.13.0"
+
+# logging dependencies
+env_logger = "0.10.0"
+log = "0.4.17"
+
+# formatter dependencies
+rustfmt = "0.10.0"
+
+# env dependencies
+dotenv = "0.15.0"
+
+# postgres databse dependencies
+diesel = { version = "2.0.0", features = ["postgres"] }
+dotenvy = "0.15"
+
+# json dependencies
+serde_json = "1.0.89"
+serde = "1.0.147"
+json = "0.12.4"
