@@ -1,16 +1,13 @@
-// Third party libs
-use log::info;
-
-use log::warn;
-
+// ** info: third party libs imports
 use serde_json;
-
+use log::info;
+use log::warn;
 use std::fs;
 
-// Project modules
-use crate::configs::schemas::server;
+// ** info: project modules imports
+use crate::common_modules::configs::server_schema;
 
-pub fn read_server_config() -> server::ServerConfig {
+pub fn read_server_config() -> server_schema::Schema {
     const PATH: &str = "configs/server.json";
 
     info!("file path: {}", PATH);
@@ -26,7 +23,7 @@ pub fn read_server_config() -> server::ServerConfig {
         }
     };
 
-    let config: server::ServerConfig = match serde_json::from_str(&data) {
+    let config: server_schema::Schema = match serde_json::from_str(&data) {
         Err(error) => {
             warn!("json file stored at was not well-formatted {}", PATH);
             panic!("problem opening the file: {:?}", error)

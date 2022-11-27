@@ -1,30 +1,28 @@
-// Custom modules declarations
-mod configs;
+// ** info: ustom modules declarations
+mod common_modules;
 
-// Custom modules imports
-use crate::configs::readers;
+// ** info: project modules imports
+use crate::common_modules::configs::server_reader;
+use crate::common_modules::logger::logger;
 
-// Third party libs
+// **info: making log available at context level
 #[allow(unused_imports)]
 #[macro_use]
 extern crate log;
 
-use dotenv::dotenv;
-
-use env_logger::Env;
-
+// ** info: third party libs imports
+use dotenvy::dotenv;
 use log::info;
 
 fn main() {
+    // ** info: reading .env file
     dotenv().ok();
 
-    let env: Env = Env::default()
-        .filter_or("MY_LOG_LEVEL", "trace")
-        .write_style_or("MY_LOG_STYLE", "always");
-
-    env_logger::init_from_env(env);
+    // ** info: setting up the logger
+    logger::setup();
 
     info!("starting app");
 
-    readers::server::read_server_config();
+    // ** info: reading config files
+    server_reader::read_server_config();
 }
