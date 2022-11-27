@@ -5,3 +5,7 @@ blank_lines_upper_bound = 1
 # Imports
 imports_granularity = "Crate"
 reorder_imports = false
+
+# Misc
+chain_width = 120
+max_width = 140
