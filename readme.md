@@ -2,9 +2,17 @@
 
 A really simple CRUD REST API based on Docker and Rust.
 
+<br/>
+
 ## Project commands
 
-**Note:** Before running any of these commands be sure to be inside the **main** directory of the repo.
+**Note:** Before running any of these commands be sure that your **CWD** is **users_crud_api_rust** directory.
+
+### Format The Code Using Rustfmt
+
+```bash
+cargo fmt
+```
 
 ### Run On development Mode
 
@@ -24,31 +32,31 @@ APP_MODE=testing cargo run
 APP_MODE=production cargo run
 ```
 
-### Docker Containerized App Building
+<br/>
 
-**Note:** Before running any of these commands be sure to be inside the **root** directory of the repo.
+## Docker Project commands
 
-#### Without Cache
+**Note:** Before running any of these commands be sure that your **CWD** is **users_crud_api_rust** directory.
+
+### Docker App Building Without Cache
 
 ```bash
 docker build --no-cache --tag users_crud_api_rust:latest .
 ```
 
-#### With Cache
+### Docker App Building With Cache
 
 ```bash
 docker build --tag users_crud_api_rust:latest .
 ```
 
-### Docker Containerized App Deployment
-
-#### Without Detach
+### Docker App Deployment Without Detach
 
 ```bash
 docker run --rm --name users_crud_api_rust --publish 3064:3064 --env-file ./.env --env APP_PORT=3064 --env APP_MODE=production users_crud_api_rust:latest
 ```
 
-#### With Detach
+### Docker App Deployment With Detach
 
 ```bash
 docker run --detach --rm --name users_crud_api_rust --publish 3064:3064 --env-file ./.env --env APP_PORT=3064 --env APP_MODE=production users_crud_api_rust:latest
@@ -66,8 +74,4 @@ docker exec -it users_crud_api_rust /bin/ash
 docker kill users_crud_api_rust
 ```
 
-## Format The Code Using Rustfmt
-
-```bash
-cargo fmt
-```
+<br/>
