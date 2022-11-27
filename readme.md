@@ -41,13 +41,13 @@ APP_MODE=production cargo run
 ### Docker App Building Without Cache
 
 ```bash
-docker build --no-cache --tag users_crud_api_rust:latest .
+docker build --no-cache --tag ghcr.io/joseesco24/users_crud_api_rust:latest .
 ```
 
 ### Docker App Building With Cache
 
 ```bash
-docker build --tag users_crud_api_rust:latest .
+docker build --tag ghcr.io/joseesco24/users_crud_api_rust:latest .
 ```
 
 ### Docker App Deployment Without Detach
@@ -72,6 +72,18 @@ docker exec -it users_crud_api_rust /bin/ash
 
 ```bash
 docker kill users_crud_api_rust
+```
+
+### Docker Login Into GitHub Container Registry
+
+```bash
+docker login -u joseesco24 -p < authentication token > ghcr.io
+```
+
+### Docker Push The Image To GitHub Container Registry
+
+```bash
+docker push ghcr.io/joseesco24/users_crud_api_rust:latest
 ```
 
 <br/>
