@@ -1,0 +1,25 @@
+{
+	"name": "users_crud_api_rust",
+	"version": "0.0.0",
+	"description": "A really simple CRUD GraphQL API based on Docker and Rust.",
+	"author": {
+		"email": "josed.escobar@outlook.com",
+		"name": "joseesco24"
+	},
+	"readme": "readme.md",
+	"scripts": {
+		"app:dev": "APP_ENVIRONMENT_MODE=development cargo run",
+		"app:prod": "APP_ENVIRONMENT_MODE=production cargo run",
+		"commitmsg": "bash hooks/commit-msg.sh",
+		"precommit": "bash hooks/pre-commit.sh",
+		"postinstall": "npx husky install",
+		"test": "cargo test -- --show-output",
+		"lint": "cargo clippy",
+		"format": "cargo fmt"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "^18.4.3",
+		"@commitlint/config-conventional": "^18.4.3",
+		"husky": "^8.0.3"
+	}
+}

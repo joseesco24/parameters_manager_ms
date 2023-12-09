@@ -1,7 +1,7 @@
 // ** info: third party libs imports
-use serde_json;
 use log::info;
 use log::warn;
+use serde_json;
 use std::fs;
 
 // ** info: project modules imports
