@@ -1,0 +1,8 @@
+version: "3.8"
+
+services:
+  parameters_manager_ms_app:
+    image: ghcr.io/joseesco24/parameters_manager_ms:latest
+    build:
+      dockerfile: dockerfile
+      context: ../.

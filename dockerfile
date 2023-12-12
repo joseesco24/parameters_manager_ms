@@ -3,7 +3,7 @@
 # ---------------------------------------------------------------------------------------------------------------------
 
 # ** info: declaration of the building image base version
-FROM rust:1.65.0 AS build
+FROM rust:1.73.0 AS build
 
 # ** info: declaration of the building image working directory
 ARG WORKDIR=/home/rust_prod
@@ -54,7 +54,7 @@ USER $USERNAME
 COPY ["configs", "$WORKDIR/configs"]
 
 # ** info: copying the builded app from the building image to the production image
-COPY --from=build ["/home/rust_prod/target/release/users_crud_api_rust", "$WORKDIR"]
+COPY --from=build ["/home/rust_prod/target/release/parameters_manager_ms", "$WORKDIR"]
 
 # ** info: executing the app
-ENTRYPOINT ["./users_crud_api_rust"]
+ENTRYPOINT ["./parameters_manager_ms"]

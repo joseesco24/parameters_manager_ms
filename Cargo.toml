@@ -1,7 +1,7 @@
 [package]
-name = "users_crud_api_rust"
+name = "parameters_manager_ms"
 version = "0.0.0"
-description = "A really simple CRUD GraphQL API based on Docker and Rust."
+description = "A simple parameterization microservice based on Rust."
 authors = ["joseesco24 <josed.escobar@outlook.com>"]
 readme = "readme.md"
 edition = "2021"

@@ -3053,7 +3053,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "users_crud_api_rust"
+name = "parameters_manager_ms"
 version = "0.0.0"
 dependencies = [
  "cargo-edit",
